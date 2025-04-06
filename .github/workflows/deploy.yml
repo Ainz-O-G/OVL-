@@ -1,0 +1,36 @@
+name: 🚧 OVL-MD Bot CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 */5 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: 📥 Récupération du dépôt
+        uses: actions/checkout@v3
+
+      - name: 🛠️ Configuration de Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 📦 Installation des dépendances
+        run: |
+          npm i
+
+      - name: 🚀 Démarrage du bot
+        run: |
+          timeout 18120s npm run Ovl
